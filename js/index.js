@@ -1,3 +1,4 @@
+
 var request1
 var request
 if (window.XMLHttpRequest) {
@@ -11,7 +12,7 @@ if (window.XMLHttpRequest) {
 let today=new Date();
 var year = today.getFullYear();
 var month = ('0' + (today.getMonth() + 1)).slice(-2);
-var date = ('0' + today.getDate()).slice(-2);
+var date = ('0' + today.getDate()).slice(-2);A
 const birthday = new Date(year+'-'+month+'-'+date);
 const day1 = birthday.getDay();
 const div = document.getElementById('hello');
