@@ -12,11 +12,50 @@ if (window.XMLHttpRequest) {
 let today=new Date();
 var year = today.getFullYear();
 var month = ('0' + (today.getMonth() + 1)).slice(-2);
-var date = ('0' + today.getDate()).slice(-2);A
+var date = ('0' + today.getDate()).slice(-2);
 const birthday = new Date(year+'-'+month+'-'+date);
 const day1 = birthday.getDay();
 const div = document.getElementById('hello');
 const numdate = Number(date)+1
+
+// 현재 반을 설정합니다. (예: 오늘은 8반)
+let currentClass = 8;
+
+// 하루가 지나면 반을 업데이트하는 함수
+function nextClass(current) {
+    if (current >= 10) {
+        return 1; // 10반 이후에는 다시 1반으로 돌아갑니다.
+    } else {
+        return current + 1; // 그 외에는 반 번호를 1 증가시킵니다.
+    }
+}
+
+// 자정을 체크하여 반을 업데이트하는 함수
+function updateClassAtMidnight() {
+    currentClass = nextClass(currentClass);
+    console.log(`새로운 반: ${currentClass}반`);
+
+    // 다음 자정까지 타이머를 다시 설정합니다.
+    setMidnightTimer();
+}
+
+// 다음 자정까지 남은 시간을 계산하고 타이머를 설정하는 함수
+function setMidnightTimer() {
+    const now = new Date();
+    const midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0); // 자정을 설정 (24시 0분 0초 0밀리초)
+    
+    const timeToMidnight = midnight - now; // 자정까지 남은 시간 계산
+    
+    // 자정에 반을 업데이트하도록 타이머 설정
+    setTimeout(updateClassAtMidnight, timeToMidnight);
+}
+
+// 초기 설정
+console.log(`오늘 반: ${currentClass}반`);
+setMidnightTimer();
+
+
 document.getElementById('ct').innerHTML = month + '월 '+ date +'일'
 document.getElementById('ct1').innerHTML = month + '월 '+ numdate +'일'
 console.log(day1)
@@ -126,3 +165,6 @@ if (day1 == 0 || day1 == 6){
     document.getElementById('hellp').remove()
     document.getElementById('weekend').style.display = 'block';
 }
+
+
+
